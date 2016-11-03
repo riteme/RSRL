@@ -5,7 +5,7 @@
 #ifndef RSRL_MATH_H_
 #define RSRL_MATH_H_
 
-#include <cmath>
+#include <cstddef>
 
 struct Vector {
     Vector();
@@ -20,15 +20,14 @@ struct Vector {
     Vector operator+(const Vector &b) const;
     Vector operator-(const Vector &b) const;
     Vector operator*(const float b) const;
+    friend Vector operator*(const float b, const Vector &a);
     Vector operator-() const;
 
     Vector &operator+=(const Vector &b);
     Vector &operator-=(const Vector &b);
     Vector &operator*=(const float b);
 
-    float length() const {
-        return sqrt(x * x + y * y + z * z);
-    }
+    float length() const;
 };
 
 struct Matrix {
@@ -37,6 +36,9 @@ struct Matrix {
            const float m10, const float m11, const float m12, const float m13,
            const float m20, const float m21, const float m22, const float m23,
            const float m30, const float m31, const float m32, const float m33);
+
+    float *operator[](const size_t x);
+    const float *operator[](const size_t x) const;
 
     Matrix operator+(const Matrix &b) const;
     Matrix operator-(const Matrix &b) const;
@@ -51,12 +53,12 @@ struct Matrix {
     Matrix &operator*=(const Matrix &b);
     Matrix &operator*=(const float b);
 
+    void load_identity();
+
  private:
     float _mat[4][4];
 };
 
-inline Vector normalize(const Vector &a) {
-    return a * (1.0f / a.length());
-}
+Vector normalize(const Vector &vec);
 
 #endif
