@@ -8,12 +8,12 @@
 static int viewer_count = 0;
 
 ViewWindow::ViewWindow(int width, int height)
-        : _width(width)
-        , _height(height)
-        , _window(nullptr)
-        , _renderer(nullptr)
-        , _texture(nullptr)
-        , _closed(false) {
+    : _width(width),
+      _height(height),
+      _window(nullptr),
+      _renderer(nullptr),
+      _texture(nullptr),
+      _closed(false) {
     ASSERT(viewer_count == 0, "Can't open 2 viewer at one time");
     viewer_count++;
 
@@ -21,8 +21,7 @@ ViewWindow::ViewWindow(int width, int height)
             SDL_GetError());
 
     _window = SDL_CreateWindow("RSRL Viewer", SDL_WINDOWPOS_CENTERED,
-                               SDL_WINDOWPOS_CENTERED, width, height,
-                               SDL_WINDOW_SHOWN);
+                               SDL_WINDOWPOS_CENTERED, width, height, 0);
     ASSERTF(_window, "Can't create window: %s", SDL_GetError());
 
     _renderer = SDL_CreateRenderer(
@@ -42,23 +41,19 @@ ViewWindow::~ViewWindow() {
 }
 
 void ViewWindow::update(SDL_Surface *surface) {
-    ASSERT(surface->w == _width, "Update display failed: Incorrect width");
-    ASSERT(surface->h == _height, "Update display failed: Incorrect height");
-
     if (_texture) {
         SDL_DestroyTexture(_texture);
         _texture = nullptr;
     }
 
-    _texture = SDL_CreateTexture(_renderer, surface->format->format,
-                                 SDL_TEXTUREACCESS_STATIC, _width, _height);
+    _texture = SDL_CreateTextureFromSurface(_renderer, surface);
     ASSERTF(_texture, "Can't create texture: %s", SDL_GetError());
 }
 
 void ViewWindow::render() {
     ASSERT(!_closed, "Window closed");
 
-    SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 255);
+    SDL_SetRenderDrawColor(_renderer, 255, 255, 255, 255);
     SDL_RenderClear(_renderer);
 
     if (_texture)
