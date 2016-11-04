@@ -16,8 +16,19 @@ struct Color {
     float blue;
     float alpha;
 
+    /**
+     * Blend b to this by alpha
+     */
     Color operator+(const Color &b) const;
+
+    /**
+     * Scale color
+     */
     Color operator*(const float r) const;
+
+    /**
+     * Negative color
+     */
     Color operator-() const;
 
     Color &operator+=(const Color &b);

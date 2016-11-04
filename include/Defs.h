@@ -13,6 +13,7 @@
         fprintf(stderr, message "\n"); \
         abort();                       \
     }
+
 #define ASSERTF(expr, message, ...)                 \
     if (!(expr)) {                                  \
         fprintf(stderr, message "\n", __VA_ARGS__); \
