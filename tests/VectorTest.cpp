@@ -6,9 +6,8 @@
 
 #include <iostream>
 
-using std::cin;
-using std::cout;
-using std::endl;
+using namespace std;
+using namespace rsr;
 
 int main() {
     float x1, y1, z1, x2, y2, z2, r;

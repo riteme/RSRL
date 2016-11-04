@@ -5,6 +5,8 @@
 #include "Color.h"
 #include "Defs.h"
 
+namespace rsr {
+
 Color::Color() : red(0.0), green(0.0), blue(0.0), alpha(1.0) {}
 
 Color::Color(const float _red, const float _green, const float _blue)
@@ -43,3 +45,5 @@ Color &Color::operator*=(const float r) {
 
     return *this;
 }
+
+}  // namespace rsr

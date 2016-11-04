@@ -20,6 +20,10 @@
         abort();                                    \
     }
 
+namespace rsr {
+
 typedef unsigned char UByte;
+
+}  // namespace rsr
 
 #endif  // RSRL_DEFS_H_

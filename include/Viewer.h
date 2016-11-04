@@ -15,6 +15,8 @@
 #include <atomic>
 #include <thread>
 
+namespace rsr {
+
 class ViewWindow {
  public:
     ViewWindow(int width, int height);
@@ -38,12 +40,14 @@ class ViewWindow {
     bool is_closed() const;
 
  private:
-    int           _width;
-    int           _height;
-    SDL_Window*   _window;
+    int _width;
+    int _height;
+    SDL_Window* _window;
     SDL_Renderer* _renderer;
-    SDL_Texture*  _texture;
-    bool          _closed;
+    SDL_Texture* _texture;
+    bool _closed;
 };  // class ViewWindow
+
+}  // namespace rsr
 
 #endif  // RSRL_VIEWER_H_

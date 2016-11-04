@@ -7,6 +7,8 @@
 
 #include <SDL2/SDL_image.h>
 
+using namespace rsr;
+
 int main() {
     ViewWindow window(800, 600);
 

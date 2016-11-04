@@ -7,6 +7,7 @@
 #include "Color.h"
 
 using namespace std;
+using namespace rsr;
 
 int main() {
     float r1, g1, b1, a1;

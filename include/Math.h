@@ -7,6 +7,8 @@
 
 #include <cstddef>
 
+namespace rsr {
+
 struct Vector {
     Vector();
     Vector(const float _x, const float _y, const float _z);
@@ -122,5 +124,7 @@ float cross(const Vector &a, const Vector &b);
  * @return   a dot b
  */
 float dot(const Vector &a, const Vector &b);
+
+}  // namespace rsr
 
 #endif  // RSRL_MATH_H_

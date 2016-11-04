@@ -5,6 +5,8 @@
 #ifndef RSRL_COLOR_H_
 #define RSRL_COLOR_H_
 
+namespace rsr {
+
 struct Color {
     Color();
     Color(const float _red, const float _green, const float _blue);
@@ -34,5 +36,7 @@ struct Color {
     Color &operator+=(const Color &b);
     Color &operator*=(const float r);
 };  // struct Color
+
+}  // namespace rsr
 
 #endif  // RSRL_COLOR_H_

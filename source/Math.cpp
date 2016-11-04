@@ -9,13 +9,15 @@
 #include <cstddef>
 #include <cstring>
 
+namespace rsr {
+
 Vector::Vector() : x(0.0f), y(0.0f), z(0.0f), w(1.0f) {}
 
 Vector::Vector(const float _x, const float _y, const float _z)
-    : x(_x), y(_y), z(_z), w(1.0f) {}
+        : x(_x), y(_y), z(_z), w(1.0f) {}
 
 Vector::Vector(const float _x, const float _y, const float _z, const float _w)
-    : x(_x), y(_y), z(_z), w(_w) {}
+        : x(_x), y(_y), z(_z), w(_w) {}
 
 Vector Vector::operator+(const Vector &b) const {
     return Vector(x + b.x, y + b.y, z + b.z);
@@ -103,7 +105,7 @@ Matrix Matrix::operator+(const Matrix &b) const {
     Matrix c;
     for (size_t i = 0; i < 4; i++)
         for (size_t j = 0; j < 4; j++)
-            c[i][j]   = _mat[i][j] + b[i][j];
+            c[i][j] = _mat[i][j] + b[i][j];
 
     return c;
 }
@@ -112,7 +114,7 @@ Matrix Matrix::operator-(const Matrix &b) const {
     Matrix c;
     for (size_t i = 0; i < 4; i++)
         for (size_t j = 0; j < 4; j++)
-            c[i][j]   = _mat[i][j] - b[i][j];
+            c[i][j] = _mat[i][j] - b[i][j];
 
     return c;
 }
@@ -131,7 +133,7 @@ Matrix Matrix::operator*(const float b) const {
     Matrix c;
     for (size_t i = 0; i < 4; i++)
         for (size_t j = 0; j < 4; j++)
-            c[i][j]   = _mat[i][j] * b;
+            c[i][j] = _mat[i][j] * b;
 
     return c;
 }
@@ -151,7 +153,7 @@ Matrix Matrix::operator-() const {
     Matrix c;
     for (size_t i = 0; i < 4; i++)
         for (size_t j = 0; j < 4; j++)
-            c[i][j]   = -_mat[i][j];
+            c[i][j] = -_mat[i][j];
 
     return c;
 }
@@ -200,3 +202,5 @@ float cross(const Vector &a, const Vector &b) {
 float dot(const Vector &a, const Vector &b) {
     return a.x * a.y + b.x * b.y;
 }
+
+}  // namespace rsr

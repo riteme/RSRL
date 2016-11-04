@@ -8,10 +8,8 @@
 
 #include <iostream>
 
-using std::cin;
-using std::cout;
-using std::endl;
-using std::string;
+using namespace std;
+using namespace rsr;
 
 bool read_matrix(Matrix &a) {
     for (size_t i = 0; i < 4; i++)

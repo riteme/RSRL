@@ -9,15 +9,17 @@
 
 #include <string>
 
+namespace rsr {
+
 static int viewer_count = 0;
 
 ViewWindow::ViewWindow(int width, int height)
-    : _width(width),
-      _height(height),
-      _window(nullptr),
-      _renderer(nullptr),
-      _texture(nullptr),
-      _closed(false) {
+        : _width(width)
+        , _height(height)
+        , _window(nullptr)
+        , _renderer(nullptr)
+        , _texture(nullptr)
+        , _closed(false) {
     ASSERT(viewer_count == 0, "Can't open 2 viewer at one time");
     viewer_count++;
 
@@ -90,3 +92,5 @@ void ViewWindow::render() {
 bool ViewWindow::is_closed() const {
     return _closed;
 }
+
+}  // namespace rsr
