@@ -13,6 +13,6 @@ class Texture {
     UB
 
         protected : UByte *_memory;
-};
+};  // class Texture
 
-#endif
+#endif  // RSRL_TEXTURE_H_

@@ -21,4 +21,4 @@
 
 typedef unsigned char UByte;
 
-#endif
+#endif  // RSRL_DEFS_H_

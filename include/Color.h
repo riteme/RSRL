@@ -22,6 +22,6 @@ struct Color {
 
     Color &operator+=(const Color &b);
     Color &operator*=(const float r);
-};
+};  // struct Color
 
-#endif
+#endif  // RSRL_COLOR_H_

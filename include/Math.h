@@ -28,7 +28,7 @@ struct Vector {
     Vector &operator*=(const float b);
 
     float length() const;
-};
+};  // struct Vector
 
 struct Matrix {
     Matrix();
@@ -57,8 +57,8 @@ struct Matrix {
 
  private:
     float _mat[4][4];
-};
+};  // struct Matrix
 
 Vector normalize(const Vector &vec);
 
-#endif
+#endif  // RSRL_MATH_H_

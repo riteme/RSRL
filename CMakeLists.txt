@@ -17,6 +17,7 @@ aux_source_directory(./source RSRL_SOURCE)
 include_directories(./include)
 
 add_library(RSRL SHARED ${RSRL_SOURCE})
+target_link_libraries(RSRL SDL2)
 
 option(BUILD_TESTS
        "Determine whether build the tests" OFF)
@@ -28,4 +29,6 @@ if (BUILD_TESTS)
     target_link_libraries(MatrixTest RSRL)
     add_executable(VectorTest ./tests/VectorTest.cpp)
     target_link_libraries(VectorTest RSRL)
+    add_executable(ViewerTest ./tests/ViewerTest.cpp)
+    target_link_libraries(ViewerTest RSRL SDL2_image)
 endif (BUILD_TESTS)
