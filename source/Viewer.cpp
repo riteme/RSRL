@@ -5,6 +5,10 @@
 #include "Viewer.h"
 #include "Defs.h"
 
+#include <ctime>
+
+#include <string>
+
 static int viewer_count = 0;
 
 ViewWindow::ViewWindow(int width, int height)
@@ -63,9 +67,24 @@ void ViewWindow::render() {
 
     // Process window events
     SDL_Event event;
-    while (SDL_PollEvent(&event))
+    while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT)
             _closed = true;
+        else if (event.type == SDL_KEYDOWN) {
+            if (event.key.keysym.sym == SDLK_F5) {
+                SDL_Surface *screenshot =
+                    SDL_CreateRGBSurface(0, _width, _height, 32, 0xFF000000,
+                                         0x00FF0000, 0x0000FF00, 0x000000FF);
+                SDL_RenderReadPixels(_renderer, nullptr,
+                                     SDL_PIXELFORMAT_RGBA8888,
+                                     screenshot->pixels, screenshot->pitch);
+                SDL_SaveBMP(screenshot, (std::string("screenshot") +
+                                         std::to_string(time(nullptr)) + ".bmp")
+                                            .data());
+                SDL_FreeSurface(screenshot);
+            }
+        }
+    }
 }
 
 bool ViewWindow::is_closed() const {
