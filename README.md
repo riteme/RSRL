@@ -13,7 +13,7 @@ This project is still WIP.
 1. make sure you have installed SDL2 and cmake (>= 2.6). If you haven't install it, use `apt-get` to install.
 
 ```shell
-sudo apt-get install libsdl2-dev cmake
+sudo apt-get install libsdl2-dev libsdl2-image-dev cmake
 ```
 2. Clone this repo, prepare to build:
 
