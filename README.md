@@ -3,7 +3,7 @@ This project is still WIP.
 
 ## Progress
 * [x] Basis (`Color`, `Vector`, `Matrix`, etc.)
-* [ ] Viewer Window
+* [x] Viewer Window
 * [ ] 2D Software Rendering
 * [ ] 3D Software Rendering
 
