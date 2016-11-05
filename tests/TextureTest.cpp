@@ -20,7 +20,7 @@ int main() {
 
     srand(time(0));
 
-    Color background = { 0.5f, 0.5f, 0.5f, 1.0f };
+    Color background = {0.5f, 0.5f, 0.5f, 1.0f};
     float rv = ((rand() % 200) - 100) / 10000.0f;
     float gv = ((rand() % 200) - 100) / 10000.0f;
     float bv = ((rand() % 200) - 100) / 10000.0f;

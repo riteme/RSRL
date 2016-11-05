@@ -11,7 +11,7 @@
 namespace rsr {
 
 Texture::Texture(const int width, const int height)
-        : _width(width), _height(height) {
+    : _width(width), _height(height) {
     _data = new Color[width * height];
 }
 
@@ -110,7 +110,7 @@ void Texture::read_data(SDL_Surface *&dest) {
             cdest.r = csrc.red * 255;
             cdest.g = csrc.green * 255;
             cdest.b = csrc.blue * 255;
-            cdest.a = 255;
+            // cdest.a = 255;
         }  // for
     }      // for
 
