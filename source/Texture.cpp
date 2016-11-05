@@ -10,6 +10,20 @@
 
 namespace rsr {
 
+TextureIndexer::TextureIndexer(const size_t x, Texture *texture)
+    : _x(x), _texture(texture) {}
+
+Color &TextureIndexer::operator[](const size_t y) {
+    return _texture->_data[y * _texture->width() + _x];
+}
+
+ConstTextureIndexer::ConstTextureIndexer(const size_t x, const Texture *texture)
+    : _x(x), _texture(texture) {}
+
+const Color &ConstTextureIndexer::operator[](const size_t y) const {
+    return _texture->_data[y * _texture->width() + _x];
+}
+
 Texture::Texture(const int width, const int height)
     : _width(width), _height(height) {
     _data = new Color[width * height];
@@ -60,25 +74,25 @@ Texture &Texture::operator=(Texture &&b) {
     return *this;
 }
 
-Color *Texture::operator[](const size_t x) {
-    return _data + x * height();
+TextureIndexer Texture::operator[](const size_t x) {
+    return TextureIndexer(x, this);
 }
 
-const Color *Texture::operator[](const size_t x) const {
-    return _data + x * height();
+const ConstTextureIndexer Texture::operator[](const size_t x) const {
+    return ConstTextureIndexer(x, this);
 }
 
 void Texture::clear(const Color &c) {
-    for (int i = 0; i < width() * height(); i++)
-        _data[i] = c;
+    Color *ptr = _data;
+    Color *end = _data + width() * height();
+    for (; ptr != end; ptr++)
+        *ptr = c;
 }
 
-void Texture::read_data(SDL_Surface *&dest) {
-    dest = nullptr;
-    dest = SDL_CreateRGBSurface(0, width(), height(), 32, 0xFF000000,
-                                0x00FF0000, 0x0000FF00, 0x000000FF);
-    ASSERTF(dest, "Can't create SDL_Surface to read data from texture: %s",
-            SDL_GetError());
+void Texture::read_data(SDL_Surface *&dest) const {
+    ASSERT(dest, "Invalid argument 'dest': NULL Surface");
+    ASSERT(width() <= dest->w, "Incompatible width");
+    ASSERT(height() <= dest->h, "Incompatible height");
 
     if (SDL_MUSTLOCK(dest))
         SDL_LockSurface(dest);
@@ -87,32 +101,17 @@ void Texture::read_data(SDL_Surface *&dest) {
     ASSERTF(sizeof(SDL_Color) == 4, "SDL_Color padded: current is %zu bytes",
             sizeof(SDL_Color));
 
-    for (int x = 0; x < width(); x++) {
-        for (int y = 0; y < height(); y++) {
-            Color &csrc = _data[x * height() + y];
-            SDL_Color &cdest = data[x + y * width()];
+    Color *csrc = _data;
+    Color *end = _data + width() * height();
+    SDL_Color *cdest = data;
+    while (csrc != end) {
+        cdest->r = csrc->red * 255.0f;
+        cdest->g = csrc->green * 255.0f;
+        cdest->b = csrc->blue * 255.0f;
 
-            // Colors may out of range
-            // Alpha does not affect rseult, so ignored
-            if (csrc.red < 0.0f)
-                csrc.red = 0.0f;
-            else if (csrc.red > 1.0f)
-                csrc.red = 1.0f;
-            if (csrc.green < 0.0f)
-                csrc.green = 0.0f;
-            else if (csrc.green > 1.0f)
-                csrc.green = 1.0f;
-            if (csrc.blue < 0.0f)
-                csrc.blue = 0.0f;
-            else if (csrc.blue > 1.0f)
-                csrc.blue = 1.0f;
-
-            cdest.r = csrc.red * 255;
-            cdest.g = csrc.green * 255;
-            cdest.b = csrc.blue * 255;
-            // cdest.a = 255;
-        }  // for
-    }      // for
+        csrc++;
+        cdest++;
+    }  // while
 
     if (SDL_MUSTLOCK(dest))
         SDL_UnlockSurface(dest);

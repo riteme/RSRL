@@ -35,6 +35,13 @@ struct Color {
 
     Color &operator+=(const Color &b);
     Color &operator*=(const float r);
+
+    /**
+     * Correct color
+     * If red, green, blue or alpha not in [0.0, 1.0], it will be cut to the
+     * nearest bound
+     */
+    void correct();
 };  // struct Color
 
 }  // namespace rsr

@@ -42,17 +42,15 @@ int main() {
         if (background.blue <= 0.0f || background.blue >= 1.0f)
             bv *= -1.0f;
 
+        background.correct();
+
         texture.clear(background);
-        for (int x = 200; x <= 600; x++)
-            for (int y = 200; y <= 400; y++)
+        for (int y = 200; y <= 400; y++)
+            for (int x = 200; x <= 600; x++)
                 texture[x][y] = -background;
 
-        SDL_Surface *data;
-        texture.read_data(data);
-        window.update(data);
-        SDL_FreeSurface(data);
-
-        window.render();
+        window.update(texture);
+        window.do_events();
 
         if (time(0) != lasttime) {
             cout << "FPS: " << count << endl;

@@ -10,6 +10,8 @@
 #ifndef RSRL_VIEWER_H_
 #define RSRL_VIEWER_H_
 
+#include "Texture.h"
+
 #include <SDL2/SDL.h>
 
 #include <atomic>
@@ -24,14 +26,14 @@ class ViewWindow {
 
     /**
      * Update display
-     * @param surface content
+     * @param texture content
      */
-    void update(SDL_Surface* surface);
+    void update(const Texture& texture);
 
     /**
-     * Render to screen
+     * Process window events
      */
-    void render();
+    void do_events();
 
     /**
      * Is window closed?
@@ -39,12 +41,22 @@ class ViewWindow {
      */
     bool is_closed() const;
 
+    /**
+     * Get window width
+     * @return the width
+     */
+    int width() const;
+
+    /**
+     * Get window height
+     * @return the height
+     */
+    int height() const;
+
  private:
     int _width;
     int _height;
     SDL_Window* _window;
-    SDL_Renderer* _renderer;
-    SDL_Texture* _texture;
     bool _closed;
 };  // class ViewWindow
 
