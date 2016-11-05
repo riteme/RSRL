@@ -30,8 +30,7 @@ ViewWindow::ViewWindow(int width, int height)
                                SDL_WINDOWPOS_CENTERED, width, height, 0);
     ASSERTF(_window, "Can't create window: %s", SDL_GetError());
 
-    _renderer = SDL_CreateRenderer(
-        _window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    _renderer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_ACCELERATED);
     ASSERTF(_renderer, "Can't create renderer: %s", SDL_GetError());
 }
 

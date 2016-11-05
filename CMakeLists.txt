@@ -10,7 +10,7 @@ option(DEBUG
 if (DEBUG)
     set(CMAKE_CXX_FLAGS "-std=c++11 -g")
 else (DEBUG)
-    set(CMAKE_CXX_FLAGS "-std=c++11 -O3")
+    set(CMAKE_CXX_FLAGS "-std=c++11 -O3 -DNDEBUG")
 endif (DEBUG)
 
 aux_source_directory(./source RSRL_SOURCE)

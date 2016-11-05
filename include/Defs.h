@@ -8,6 +8,8 @@
 #include <cstdio>
 #include <cstdlib>
 
+#ifndef NDEBUG
+
 #define ASSERT(expr, message)          \
     if (!(expr)) {                     \
         fprintf(stderr, message "\n"); \
@@ -19,6 +21,13 @@
         fprintf(stderr, message "\n", __VA_ARGS__); \
         abort();                                    \
     }
+
+#else
+
+#define ASSERT
+#define ASSERTF
+
+#endif  // IFNDEF NDEBUG
 
 namespace rsr {
 
