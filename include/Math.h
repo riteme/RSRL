@@ -96,8 +96,6 @@ struct Matrix {
     Matrix &operator*=(const Matrix &b);
     Matrix &operator*=(const float b);
 
-    void load_identity();
-
  private:
     float _mat[4][4];
 };  // struct Matrix
@@ -124,6 +122,18 @@ float cross(const Vector &a, const Vector &b);
  * @return   a dot b
  */
 float dot(const Vector &a, const Vector &b);
+
+Matrix identity();
+
+Matrix transform(const float dx, const float dy, const float dz);
+Matrix transform(const Vector &d);
+
+Matrix scale(const float sx, const float sy, const float sz);
+Matrix scale(const Vector s);
+
+Matrix rotate_x(const float angle);
+Matrix rotate_y(const float angle);
+Matrix rotate_z(const float angle);
 
 }  // namespace rsr
 

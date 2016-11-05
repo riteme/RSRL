@@ -14,10 +14,10 @@ namespace rsr {
 Vector::Vector() : x(0.0f), y(0.0f), z(0.0f), w(1.0f) {}
 
 Vector::Vector(const float _x, const float _y, const float _z)
-        : x(_x), y(_y), z(_z), w(1.0f) {}
+    : x(_x), y(_y), z(_z), w(1.0f) {}
 
 Vector::Vector(const float _x, const float _y, const float _z, const float _w)
-        : x(_x), y(_y), z(_z), w(_w) {}
+    : x(_x), y(_y), z(_z), w(_w) {}
 
 Vector Vector::operator+(const Vector &b) const {
     return Vector(x + b.x, y + b.y, z + b.z);
@@ -186,11 +186,6 @@ Matrix &Matrix::operator*=(const float b) {
     return *this;
 }
 
-void Matrix::load_identity() {
-    memset(_mat, 0, sizeof(_mat));
-    _mat[0][0] = _mat[1][1] = _mat[2][2] = _mat[3][3] = 1.0f;
-}
-
 Vector normalize(const Vector &vec) {
     return vec * (1.0f / vec.length());
 }
@@ -201,6 +196,60 @@ float cross(const Vector &a, const Vector &b) {
 
 float dot(const Vector &a, const Vector &b) {
     return a.x * a.y + b.x * b.y;
+}
+
+Matrix identity() {
+    return Matrix(1.0f, 0.0f, 0.0f, 0.0f,  // Line 1
+                  0.0f, 1.0f, 0.0f, 0.0f,  // Line 2
+                  0.0f, 0.0f, 1.0f, 0.0f,  // Line 3
+                  0.0f, 0.0f, 0.0f, 1.0f   // Line 4
+                  );
+}
+
+Matrix transform(const float dx, const float dy, const float dz) {
+    return Matrix(1.0f, 0.0f, 0.0f, dx,   // Line 1
+                  0.0f, 1.0f, 0.0f, dy,   // Line 2
+                  0.0f, 0.0f, 1.0f, dz,   // Line 3
+                  0.0f, 0.0f, 0.0f, 1.0f  // Line 4
+                  );
+}
+
+Matrix transform(const Vector &d) {
+    return transform(d.x, d.y, d.z);
+}
+
+Matrix scale(const float sx, const float sy, const float sz) {
+    return Matrix(sx, 0.0f, 0.0f, 0.0f,   // Line 1
+                  0.0f, sy, 0.0f, 0.0f,   // Line 2
+                  0.0f, 0.0f, sz, 0.0f,   // Line 3
+                  0.0f, 0.0f, 0.0f, 1.0f  // Line 4
+                  );
+}
+Matrix scale(const Vector s) {
+    return scale(s.x, s.y, s.z);
+}
+
+Matrix rotate_y(const float angle) {
+    return Matrix(cos(angle), 0.0f, -sin(angle), 0.0f,  // Line 1
+                  0.0f, 1.0f, 0.0f, 0.0f,               // Line 2
+                  sin(angle), 0.0f, cos(angle), 0.0f,   // Line 3
+                  0.0f, 0.0f, 0.0f, 1.0f                // Line 4
+                  );
+}
+Matrix rotate_x(const float angle) {
+    return Matrix(1.0f, 0.0f, 0.0f, 0.0f,               // Line 1
+                  0.0f, cos(angle), -sin(angle), 0.0f,  // Line 2
+                  0.0f, sin(angle), cos(angle), 0.0f,   // Line 3
+                  0.0f, 0.0f, 0.0f, 1.0f                // Line 4
+                  );
+}
+
+Matrix rotate_z(const float angle) {
+    return Matrix(cos(angle), -sin(angle), 0.0f, 0.0f,  // Line 1
+                  sin(angle), cos(angle), 0.0f, 0.0f,   // Line 2
+                  0.0f, 0.0f, 1.0f, 0.0f,               // Line 3
+                  0.0f, 0.0f, 0.0f, 1.0f                // Line 4
+                  );
 }
 
 }  // namespace rsr
