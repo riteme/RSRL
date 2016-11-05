@@ -8,13 +8,38 @@
 #include "Color.h"
 #include "Defs.h"
 
+#include <SDL2/SDL.h>
+
 namespace rsr {
 
 class Texture {
-    Texture(const size_t width, const size_t height);
+ public:
+    Texture(const int width, const int height);
+    Texture(const Texture &b);
+    Texture(Texture &&b);
+    ~Texture();
+
+    Texture &operator=(const Texture &b);
+    Texture &operator=(Texture &&b);
+
+    Color *operator[](const size_t x);
+    const Color *operator[](const size_t x) const;
+
+    void clear(const Color &c);
+    void read_data(SDL_Surface *&dest);
+
+    int width() const;
+    int height() const;
+    Color map(const float u, const float v) const;
 
  private:
-    Color
+    Color sample(const float x, const float y, const float x1, const float y1,
+                 const float x2, const float y2, const float x3, const float y3,
+                 const float x4, const float y4) const;
+
+    int _width;
+    int _height;
+    Color *_data;
 };  // class Texture
 
 }  // namespace rsr

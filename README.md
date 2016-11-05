@@ -4,6 +4,7 @@ This project is still WIP.
 ## Progress
 * [x] Basis (`Color`, `Vector`, `Matrix`, etc.)
 * [x] Viewer Window
+* [x] Texture
 * [ ] 2D Software Rendering
 * [ ] 3D Software Rendering
 
@@ -40,4 +41,8 @@ make
 ```
 
 If no error reported, RSRL should be compiled successfully.
-Checkout the folder to test it!
+Checkout the folder 'build' to test it!
+
+```shell
+./TextureTest
+```
