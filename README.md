@@ -57,7 +57,7 @@ If you have built with `-DBUILD_TESTS=ON`, you will found them in `build` folder
 
 ## Screenshots
 ### TextureTest
-![Texture Test Screenshot](./pictures/texture-test-screenshot.bmp)
+![Texture Test Screenshot](./pictures/texture-test-screenshot.png)
 
 ### DrawLineTest
-![Draw Line Test Screenshot](./pictures/draw-line-test-screenshot.bmp)
+![Draw Line Test Screenshot](./pictures/draw-line-test-screenshot.png)
