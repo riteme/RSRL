@@ -32,13 +32,11 @@ Texture::Texture(const int width, const int height)
 Texture::Texture(const Texture &b) {
     _width = b.width();
     _height = b.height();
+    _data = new Color4f[width() * height()];
     memcpy(_data, b._data, sizeof(Color4f) * width() * height());
 }
 
 Texture::Texture(Texture &&b) {
-    if (_data)
-        delete[] _data;
-
     _width = b.width();
     _height = b.height();
     _data = b._data;
