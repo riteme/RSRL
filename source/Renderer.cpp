@@ -34,43 +34,32 @@ void Renderer::draw_line(const int x1, const int y1, const int x2, const int y2,
         for (int x = std::min(x1, x2); x <= std::max(x1, x2); x++)
             draw_pixel(x, y1, c);
     else {
-        // Bresenham Algorithm (float version)
-
-        int _x1 = x1, _y1 = y1, _x2 = x2, _y2 = y2;
-
-        if (_x1 > _x2) {
-            std::swap(_x1, _x2);
-            std::swap(_y1, _y2);
+        // Bresenham Algorithm (integer version)
+        int dy, y;
+        if (x1 < x2) {
+            dy = y1 < y2 ? 1 : -1;
+            y = y1;
+        } else {
+            dy = y1 > y2 ? 1 : -1;
+            y = y2;
         }
 
-        float delta_x = _x1 - _x2;
-        float delta_y = _y1 - _y2;
-        float k = delta_y / delta_x;
-        float e = 0.0f;
-
-        int y = _y1;
-        int dy = k > 0 ? 1 : -1;
-        k = fabs(k);
-
-        for (int x = _x1; x < _x2; x++) {
+        int delta_x = std::abs(x1 - x2);
+        int delta_y = std::abs(y1 - y2);
+        int e = 0;
+        for (int x = std::min(x1, x2); x <= std::max(x1, x2); x++) {
             if (e < 0)
                 draw_pixel(x, y, c);
             else {
                 while (e >= 0) {
-                    e -= 1.0f;
+                    e -= delta_x;
                     draw_pixel(x, y, c);
                     y += dy;
                 }  // while
             }
 
-            e += k;
+            e += delta_y;
         }
-
-        while (y != _y2) {
-            draw_pixel(_x2, y, c);
-            y += dy;
-        }  // while
-        draw_pixel(_x2, _y2, c);
     }
 }
 
