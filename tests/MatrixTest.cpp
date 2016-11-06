@@ -11,7 +11,7 @@
 using namespace std;
 using namespace rsr;
 
-bool read_matrix(Matrix &a) {
+bool read_matrix(Matrix4f &a) {
     for (size_t i = 0; i < 4; i++)
         for (size_t j = 0; j < 4; j++)
             cin >> a[i][j];
@@ -19,7 +19,7 @@ bool read_matrix(Matrix &a) {
     return cin.good();
 }
 
-void print_matrix(const string &message, const Matrix &a) {
+void print_matrix(const string &message, const Matrix4f &a) {
     cout << message << endl;
 
     for (size_t i = 0; i < 4; i++) {
@@ -34,7 +34,7 @@ void print_matrix(const string &message, const Matrix &a) {
 }
 
 int main() {
-    Matrix a, b;
+    Matrix4f a, b;
     float r;
 
     while (read_matrix(a) && read_matrix(b) && cin >> r) {

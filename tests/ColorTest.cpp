@@ -15,10 +15,10 @@ int main() {
     float r;
 
     while (cin >> r1 >> g1 >> b1 >> a1 >> r2 >> g2 >> b2 >> a2 >> r) {
-        Color a(r1, g1, b1, a1);
-        Color b(r2, g2, b2, a2);
+        Color4f a(r1, g1, b1, a1);
+        Color4f b(r2, g2, b2, a2);
 
-        Color c = a + b;
+        Color4f c = a + b;
         cout << "a + b = " << c.red << ", " << c.green << ", " << c.blue << ", "
              << c.alpha << endl;
         c = a * r;

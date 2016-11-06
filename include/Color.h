@@ -7,11 +7,11 @@
 
 namespace rsr {
 
-struct Color {
-    Color();
-    Color(const float _red, const float _green, const float _blue);
-    Color(const float _red, const float _green, const float _blue,
-          const float _alpha);
+struct Color4f {
+    Color4f();
+    Color4f(const float _red, const float _green, const float _blue);
+    Color4f(const float _red, const float _green, const float _blue,
+            const float _alpha);
 
     float red;
     float green;
@@ -21,20 +21,20 @@ struct Color {
     /**
      * Blend b to this by alpha
      */
-    Color operator+(const Color &b) const;
+    Color4f operator+(const Color4f &b) const;
 
     /**
      * Scale color
      */
-    Color operator*(const float r) const;
+    Color4f operator*(const float r) const;
 
     /**
      * Negative color
      */
-    Color operator-() const;
+    Color4f operator-() const;
 
-    Color &operator+=(const Color &b);
-    Color &operator*=(const float r);
+    Color4f &operator+=(const Color4f &b);
+    Color4f &operator*=(const float r);
 
     /**
      * Correct color
@@ -42,7 +42,7 @@ struct Color {
      * nearest bound
      */
     void correct();
-};  // struct Color
+};  // struct Color4f
 
 }  // namespace rsr
 

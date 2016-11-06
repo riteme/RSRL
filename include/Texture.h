@@ -22,7 +22,7 @@ class Texture;
 struct TextureIndexer {
     TextureIndexer(const size_t x, Texture *texture);
 
-    Color &operator[](const size_t y);
+    Color4f &operator[](const size_t y);
 
  private:
     size_t _x;
@@ -32,7 +32,7 @@ struct TextureIndexer {
 struct ConstTextureIndexer {
     ConstTextureIndexer(const size_t x, const Texture *texture);
 
-    const Color &operator[](const size_t y) const;
+    const Color4f &operator[](const size_t y) const;
 
  private:
     size_t _x;
@@ -59,7 +59,7 @@ class Texture {
      * Clear the texture with a specified color
      * @param c color
      */
-    void clear(const Color &c);
+    void clear(const Color4f &c);
 
     /**
      * Read texture data to a SDL_Surface
@@ -87,16 +87,16 @@ class Texture {
      * #remark:
      *     Start from left-top corner
      */
-    Color map(const float u, const float v) const;
+    Color4f map(const float u, const float v) const;
 
  private:
-    Color sample(const float x, const float y, const float x1, const float y1,
-                 const float x2, const float y2, const float x3, const float y3,
-                 const float x4, const float y4) const;
+    Color4f sample(const float x, const float y, const float x1, const float y1,
+                   const float x2, const float y2, const float x3,
+                   const float y3, const float x4, const float y4) const;
 
     int _width;
     int _height;
-    Color *_data;
+    Color4f *_data;
 };  // class Texture
 
 }  // namespace rsr

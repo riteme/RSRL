@@ -11,28 +11,28 @@
 namespace rsr {
 
 TextureIndexer::TextureIndexer(const size_t x, Texture *texture)
-    : _x(x), _texture(texture) {}
+        : _x(x), _texture(texture) {}
 
-Color &TextureIndexer::operator[](const size_t y) {
+Color4f &TextureIndexer::operator[](const size_t y) {
     return _texture->_data[y * _texture->width() + _x];
 }
 
 ConstTextureIndexer::ConstTextureIndexer(const size_t x, const Texture *texture)
-    : _x(x), _texture(texture) {}
+        : _x(x), _texture(texture) {}
 
-const Color &ConstTextureIndexer::operator[](const size_t y) const {
+const Color4f &ConstTextureIndexer::operator[](const size_t y) const {
     return _texture->_data[y * _texture->width() + _x];
 }
 
 Texture::Texture(const int width, const int height)
-    : _width(width), _height(height) {
-    _data = new Color[width * height];
+        : _width(width), _height(height) {
+    _data = new Color4f[width * height];
 }
 
 Texture::Texture(const Texture &b) {
     _width = b.width();
     _height = b.height();
-    memcpy(_data, b._data, sizeof(Color) * width() * height());
+    memcpy(_data, b._data, sizeof(Color4f) * width() * height());
 }
 
 Texture::Texture(Texture &&b) {
@@ -56,8 +56,8 @@ Texture &Texture::operator=(const Texture &b) {
 
     _width = b.width();
     _height = b.height();
-    _data = new Color[width() * height()];
-    memcpy(_data, b._data, sizeof(Color) * width() * height());
+    _data = new Color4f[width() * height()];
+    memcpy(_data, b._data, sizeof(Color4f) * width() * height());
 
     return *this;
 }
@@ -82,9 +82,9 @@ const ConstTextureIndexer Texture::operator[](const size_t x) const {
     return ConstTextureIndexer(x, this);
 }
 
-void Texture::clear(const Color &c) {
-    Color *ptr = _data;
-    Color *end = _data + width() * height();
+void Texture::clear(const Color4f &c) {
+    Color4f *ptr = _data;
+    Color4f *end = _data + width() * height();
     for (; ptr != end; ptr++)
         *ptr = c;
 }
@@ -101,8 +101,8 @@ void Texture::read_data(SDL_Surface *&dest) const {
     ASSERTF(sizeof(SDL_Color) == 4, "SDL_Color padded: current is %zu bytes",
             sizeof(SDL_Color));
 
-    Color *csrc = _data;
-    Color *end = _data + width() * height();
+    Color4f *csrc = _data;
+    Color4f *end = _data + width() * height();
     SDL_Color *cdest = data;
     while (csrc != end) {
         cdest->r = csrc->red * 255.0f;
@@ -125,7 +125,7 @@ int Texture::height() const {
     return _height;
 }
 
-Color Texture::map(const float u, const float v) const {
+Color4f Texture::map(const float u, const float v) const {
     ASSERTF(0.0 <= u && u <= 1.0,
             "Invalid argument 'u': expected in [0.0, 1.0], got %.06f", u);
     ASSERTF(0.0 <= v && v <= 1.0,
@@ -148,10 +148,10 @@ Color Texture::map(const float u, const float v) const {
         return sample(x, y, px, py, px + 1, py, px, py + 1, px + 1, py + 1);
 }
 
-Color Texture::sample(const float x, const float y, const float x1,
-                      const float y1, const float x2, const float y2,
-                      const float x3, const float y3, const float x4,
-                      const float y4) const {
+Color4f Texture::sample(const float x, const float y, const float x1,
+                        const float y1, const float x2, const float y2,
+                        const float x3, const float y3, const float x4,
+                        const float y4) const {
     float nx = INFINITY, ny = INFINITY;
 
     if (0 <= x1 && x1 <= width() && 0 <= y1 && y1 <= height() &&

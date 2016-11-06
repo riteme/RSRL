@@ -13,8 +13,8 @@ int main() {
     float x1, y1, z1, x2, y2, z2, r;
 
     while (cin >> x1 >> y1 >> z1 >> x2 >> y2 >> z2 >> r) {
-        Vector a(x1, y1, z1);
-        Vector b = { x2, y2, z2 };
+        Vector4f a(x1, y1, z1);
+        Vector4f b = { x2, y2, z2 };
 
         cout << "a + b = " << (a + b).x << ", " << (a + b).y << ", "
              << (a + b).z << endl;
