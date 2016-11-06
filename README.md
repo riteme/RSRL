@@ -5,6 +5,10 @@ This project is still WIP.
 * [x] Basis (`Color`, `Vector`, `Matrix`, etc.)
 * [x] Viewer Window
 * [x] Texture
+* [ ] Renderer (At pixels level)
+    * [x] Pixel drawing
+    * [x] Line rasterization
+    * [ ] Triangle rasterization
 * [ ] 2D Software Rendering
 * [ ] 3D Software Rendering
 
@@ -41,8 +45,12 @@ make
 ```
 
 If no error reported, RSRL should be compiled successfully.
-Checkout the folder 'build' to test it!
 
-```shell
-./TextureTest
+Avaliable tests with a display window (which means you can have fun with them):
+
 ```
+TextureTest
+DrawLineTest
+```
+
+If you have built with `-DBUILD_TESTS=ON`, you will found them in `build` folder.

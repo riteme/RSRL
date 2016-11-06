@@ -14,7 +14,7 @@ namespace rsr {
 static int viewer_count = 0;
 
 ViewWindow::ViewWindow(int width, int height)
-    : _width(width), _height(height), _window(nullptr), _closed(false) {
+        : _width(width), _height(height), _window(nullptr), _closed(false) {
     ASSERT(viewer_count == 0, "Can't open 2 viewer at one time");
     viewer_count++;
 
@@ -52,11 +52,15 @@ void ViewWindow::do_events() {
         if (event.type == SDL_QUIT)
             _closed = true;
         else if (event.type == SDL_KEYDOWN)
-            if (event.key.keysym.sym == SDLK_F5)
-                SDL_SaveBMP(SDL_GetWindowSurface(_window),
+            if (event.key.keysym.sym == SDLK_F5) {
+                SDL_Surface* screenshot = SDL_GetWindowSurface(_window);
+                ASSERT(screenshot, "Can't get window's surface");
+
+                SDL_SaveBMP(screenshot,
                             (std::string("screenshot") +
                              std::to_string(time(nullptr)) + ".bmp")
                                 .data());
+            }
     }
 }
 
