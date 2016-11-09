@@ -5,6 +5,7 @@
 #include "Renderer.h"
 
 #include <algorithm>
+#include <utility>
 
 namespace rsr {
 
@@ -65,7 +66,38 @@ void Renderer::draw_line(const int x1, const int y1, const int x2, const int y2,
 
 void Renderer::draw_triangle(const int x1, const int y1, const int x2,
                              const int y2, const int x3, const int y3,
-                             const Color4f &c) {}
+                             const Color4f &c) {
+    typedef std::pair<int, int> Point;
+    Point points[] = {Point(x1, y1), Point(x2, y2), Point(x3, y3)};
+    std::sort(std::begin(points), std::end(points),
+              [](const Point &a, const Point &b) { return a.first < b.first; });
+
+    if (points[0].first == points[1].first)
+        _draw_right_triangle(points[0].second, points[1].second,
+                             points[1].first, points[2].first, points[2].second,
+                             c);
+    else if (points[2].first == points[1].first)
+        _draw_left_triangle(points[2].second, points[1].second, points[1].first,
+                            points[0].first, points[0].second, c);
+    else {
+        int midy = points[0].second +
+                   static_cast<float>(points[2].second - points[0].second) *
+                       (static_cast<float>(points[1].first - points[0].first) /
+                        static_cast<float>(points[2].first - points[0].first));
+
+#ifndef NDEBUG
+        _draw_left_triangle(points[1].second, midy, points[1].first,
+                            points[0].first, points[0].second, c);
+        _draw_right_triangle(points[1].second, midy, points[1].first,
+                             points[2].first, points[2].second, -c);
+#else
+        _draw_left_triangle(points[1].second, midy, points[1].first,
+                            points[0].first, points[0].second, c);
+        _draw_right_triangle(points[1].second, midy, points[1].first,
+                             points[2].first, points[2].second, c);
+#endif  // IFNDEF NDEBUG
+    }
+}
 
 void Renderer::_draw_right_triangle(const int y1, const int y2, const int lx,
                                     const int rx, const int ry,

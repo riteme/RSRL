@@ -14,11 +14,11 @@ namespace rsr {
 Vector4f::Vector4f() : x(0.0f), y(0.0f), z(0.0f), w(1.0f) {}
 
 Vector4f::Vector4f(const float _x, const float _y, const float _z)
-        : x(_x), y(_y), z(_z), w(1.0f) {}
+    : x(_x), y(_y), z(_z), w(1.0f) {}
 
 Vector4f::Vector4f(const float _x, const float _y, const float _z,
                    const float _w)
-        : x(_x), y(_y), z(_z), w(_w) {}
+    : x(_x), y(_y), z(_z), w(_w) {}
 
 Vector4f Vector4f::operator+(const Vector4f &b) const {
     return Vector4f(x + b.x, y + b.y, z + b.z);
@@ -53,7 +53,7 @@ Vector4f &Vector4f::operator-=(const Vector4f &b) {
 }
 
 Vector4f &Vector4f::operator*=(const float b) {
-    *this = *this *b;
+    *this = *this * b;
 
     return *this;
 }
@@ -176,13 +176,13 @@ Matrix4f &Matrix4f::operator-=(const Matrix4f &b) {
 }
 
 Matrix4f &Matrix4f::operator*=(const Matrix4f &b) {
-    *this = *this *b;
+    *this = *this * b;
 
     return *this;
 }
 
 Matrix4f &Matrix4f::operator*=(const float b) {
-    *this = *this *b;
+    *this = *this * b;
 
     return *this;
 }

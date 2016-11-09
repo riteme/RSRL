@@ -25,12 +25,12 @@ class Renderer {
                        const int x3, const int y3, const Color4f &c);
     void apply();
 
+ private:
     void _draw_right_triangle(const int y1, const int y2, const int lx,
                               const int rx, const int ry, const Color4f &c);
     void _draw_left_triangle(const int y1, const int y2, const int rx,
                              const int lx, const int ly, const Color4f &c);
 
- private:
     Texture *_target;
 };  // class Renderer
 
