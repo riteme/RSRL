@@ -63,6 +63,54 @@ void Renderer::draw_line(const int x1, const int y1, const int x2, const int y2,
     }
 }
 
+void Renderer::draw_triangle(const int x1, const int y1, const int x2,
+                             const int y2, const int x3, const int y3,
+                             const Color4f &c) {}
+
+void Renderer::_draw_right_triangle(const int y1, const int y2, const int lx,
+                                    const int rx, const int ry,
+                                    const Color4f &c) {
+    if (rx < lx)
+        return;
+    if (rx == lx)
+        draw_line(lx, y1, lx, y2, c);
+    else {
+        float _ty = std::min(y1, y2), _by = std::max(y1, y2);
+
+        float k1 = static_cast<float>(_ty - ry) / static_cast<float>(lx - rx);
+        float k2 = static_cast<float>(_by - ry) / static_cast<float>(lx - rx);
+
+        for (int x = lx; x <= rx; x++) {
+            draw_line(x, _ty + 0.5f, x, _by + 0.5f, c);
+
+            _ty += k1;
+            _by += k2;
+        }  // for
+    }
+}
+
+void Renderer::_draw_left_triangle(const int y1, const int y2, const int rx,
+                                   const int lx, const int ly,
+                                   const Color4f &c) {
+    if (rx < lx)
+        return;
+    if (rx == lx)
+        draw_line(lx, y1, lx, y2, c);
+    else {
+        float _ty = std::min(y1, y2), _by = std::max(y1, y2);
+
+        float k1 = static_cast<float>(_ty - ly) / static_cast<float>(rx - lx);
+        float k2 = static_cast<float>(_by - ly) / static_cast<float>(rx - lx);
+
+        for (int x = rx; x >= lx; x--) {
+            draw_line(x, _ty + 0.5f, x, _by + 0.5f, c);
+
+            _ty -= k1;
+            _by -= k2;
+        }  // for
+    }
+}
+
 void Renderer::apply() {}
 
 }  // namespace rsr

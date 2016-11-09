@@ -95,13 +95,14 @@ void Texture::read_data(SDL_Surface *&dest) const {
     if (SDL_MUSTLOCK(dest))
         SDL_LockSurface(dest);
 
-    SDL_Color *data = reinterpret_cast<SDL_Color *>(dest->pixels);
-    ASSERTF(sizeof(SDL_Color) == 4, "SDL_Color padded: current is %zu bytes",
-            sizeof(SDL_Color));
-
     Color4f *csrc = _data;
     Color4f *end = _data + width() * height();
-    SDL_Color *cdest = data;
+    struct _Color {
+        uint8_t b;
+        uint8_t g;
+        uint8_t r;
+        uint8_t a;
+    } *cdest = reinterpret_cast<_Color *>(dest->pixels);
     while (csrc != end) {
         cdest->r = csrc->red * 255.0f;
         cdest->g = csrc->green * 255.0f;
