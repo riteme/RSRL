@@ -52,6 +52,7 @@ Avaliable tests with a display window (which means you can have fun with them):
 ```
 TextureTest
 DrawLineTest
+DrawTriangleTest
 ```
 
 If you have built with `-DBUILD_TESTS=ON`, you will found them in `build` folder.
@@ -62,3 +63,6 @@ If you have built with `-DBUILD_TESTS=ON`, you will found them in `build` folder
 
 ### DrawLineTest
 ![Draw Line Test Screenshot](./pictures/draw-line-test-screenshot.png)
+
+### DrawTriangleTest
+![Draw Triangle Test Screenshot](./pictures/draw-triangle-test-screenshot.png)
