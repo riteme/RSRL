@@ -8,7 +8,8 @@ This project is still WIP.
 * [ ] Renderer (At pixels level)
     * [x] Pixel drawing
     * [x] Line rasterization
-    * [ ] Triangle rasterization
+    * [x] Triangle rasterization
+    * [ ] Line clipping
 * [ ] 2D Software Rendering
 * [ ] 3D Software Rendering
 

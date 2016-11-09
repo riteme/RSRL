@@ -67,6 +67,8 @@ void Renderer::draw_line(const int x1, const int y1, const int x2, const int y2,
 void Renderer::draw_triangle(const int x1, const int y1, const int x2,
                              const int y2, const int x3, const int y3,
                              const Color4f &c) {
+    // Scanline algorithm
+
     typedef std::pair<int, int> Point;
     Point points[] = {Point(x1, y1), Point(x2, y2), Point(x3, y3)};
     std::sort(std::begin(points), std::end(points),
@@ -86,6 +88,7 @@ void Renderer::draw_triangle(const int x1, const int y1, const int x2,
                         static_cast<float>(points[2].first - points[0].first));
 
 #ifndef NDEBUG
+        // Draw the right part of triangle with inversed color for debugging
         _draw_left_triangle(points[1].second, midy, points[1].first,
                             points[0].first, points[0].second, c);
         _draw_right_triangle(points[1].second, midy, points[1].first,
