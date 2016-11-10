@@ -4,13 +4,20 @@
 cmake_minimum_required(VERSION 2.6)
 project(RSRL)
 
+option(USE_CLANG
+       "Use clang++ to compile" OFF)
+
+if (USE_CLANG)
+    set(CMAKE_CXX_COMPILER "clang++")
+endif (USE_CLANG)
+
 option(DEBUG
        "Debug switch" OFF)
 
 if (DEBUG)
-    set(CMAKE_CXX_FLAGS "-std=c++11 -g")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -g")
 else (DEBUG)
-    set(CMAKE_CXX_FLAGS "-std=c++11 -O3 -ffast-math -march=native -DNDEBUG")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O3 -ffast-math -march=native -DNDEBUG")
 endif (DEBUG)
 
 aux_source_directory(./source RSRL_SOURCE)
