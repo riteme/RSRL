@@ -71,7 +71,7 @@ void Renderer::draw_triangle(const int x1, const int y1, const int x2,
 
     typedef std::pair<int, int> Point;
     Point points[] = {Point(x1, y1), Point(x2, y2), Point(x3, y3)};
-    std::sort(std::begin(points), std::end(points),
+    std::sort(points, points + 3,
               [](const Point &a, const Point &b) { return a.first < b.first; });
 
     if (points[0].first == points[1].first)
