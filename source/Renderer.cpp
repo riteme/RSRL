@@ -21,7 +21,7 @@ void Renderer::clear(const Color4f &c) {
 
 void Renderer::draw_pixel(const int x, const int y, const Color4f &c) {
     if (0 <= x && x < _target->width() && 0 <= y && y < _target->height())
-        (*_target)[x][y] = c;
+        (*_target)[x][y] += c;
 }
 
 void Renderer::draw_line(const int x1, const int y1, const int x2, const int y2,
@@ -92,19 +92,19 @@ void Renderer::draw_triangle(const int x1, const int y1, const int x2,
         _draw_left_triangle(points[1].second, midy, points[1].first,
                             points[0].first, points[0].second, c);
         _draw_right_triangle(points[1].second, midy, points[1].first,
-                             points[2].first, points[2].second, -c);
+                             points[2].first, points[2].second, -c, true);
 #else
         _draw_left_triangle(points[1].second, midy, points[1].first,
                             points[0].first, points[0].second, c);
         _draw_right_triangle(points[1].second, midy, points[1].first,
-                             points[2].first, points[2].second, c);
+                             points[2].first, points[2].second, c, true);
 #endif  // IFNDEF NDEBUG
     }
 }
 
 void Renderer::_draw_right_triangle(const int y1, const int y2, const int lx,
                                     const int rx, const int ry,
-                                    const Color4f &c) {
+                                    const Color4f &c, const bool no_start) {
     if (rx < lx)
         return;
     if (rx == lx)
@@ -115,7 +115,12 @@ void Renderer::_draw_right_triangle(const int y1, const int y2, const int lx,
         float k1 = static_cast<float>(_ty - ry) / static_cast<float>(lx - rx);
         float k2 = static_cast<float>(_by - ry) / static_cast<float>(lx - rx);
 
-        for (int x = lx; x <= rx; x++) {
+        if (!no_start)
+            draw_line(lx, _ty + 0.5f, lx, _by + 0.5f, c);
+
+        _ty += k1;
+        _by += k2;
+        for (int x = lx + 1; x <= rx; x++) {
             draw_line(x, _ty + 0.5f, x, _by + 0.5f, c);
 
             _ty += k1;
@@ -125,8 +130,8 @@ void Renderer::_draw_right_triangle(const int y1, const int y2, const int lx,
 }
 
 void Renderer::_draw_left_triangle(const int y1, const int y2, const int rx,
-                                   const int lx, const int ly,
-                                   const Color4f &c) {
+                                   const int lx, const int ly, const Color4f &c,
+                                   const bool no_start) {
     if (rx < lx)
         return;
     if (rx == lx)
@@ -137,7 +142,12 @@ void Renderer::_draw_left_triangle(const int y1, const int y2, const int rx,
         float k1 = static_cast<float>(_ty - ly) / static_cast<float>(rx - lx);
         float k2 = static_cast<float>(_by - ly) / static_cast<float>(rx - lx);
 
-        for (int x = rx; x >= lx; x--) {
+        if (!no_start)
+            draw_line(rx, _ty + 0.5f, rx, _by + 0.5f, c);
+
+        _ty -= k1;
+        _by -= k2;
+        for (int x = rx - 1; x >= lx; x--) {
             draw_line(x, _ty + 0.5f, x, _by + 0.5f, c);
 
             _ty -= k1;

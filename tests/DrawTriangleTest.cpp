@@ -81,7 +81,7 @@ int main(int argc, char *argv[]) {
         int mx, my;
         SDL_GetMouseState(&mx, &my);
         renderer.draw_triangle(x1, y1, x2, y2, mx, my,
-                               {1.0f, 0.5f, 0.5f, 1.0f});
+                               {1.0f, 0.5f, 0.5f, 0.5f});
 
         renderer.apply();
 

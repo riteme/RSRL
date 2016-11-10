@@ -27,9 +27,11 @@ class Renderer {
 
  private:
     void _draw_right_triangle(const int y1, const int y2, const int lx,
-                              const int rx, const int ry, const Color4f &c);
+                              const int rx, const int ry, const Color4f &c,
+                              const bool no_start = false);
     void _draw_left_triangle(const int y1, const int y2, const int rx,
-                             const int lx, const int ly, const Color4f &c);
+                             const int lx, const int ly, const Color4f &c,
+                             const bool no_start = false);
 
     Texture *_target;
 };  // class Renderer
